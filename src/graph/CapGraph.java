@@ -7,7 +7,10 @@ import org.graphstream.graph.implementations.SingleGraph;
 import com.google.common.collect.HashBasedTable;
 
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Supratim Das
@@ -29,6 +32,7 @@ public class CapGraph implements Graph {
 	// Week 3
     private HashMap<Integer,Boolean> infoChain;
     public static SingleGraph visual;
+
     //------------------------------------------------------------------------------------------------------------------
     // Constructor------------------------------------------------------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------
@@ -90,6 +94,7 @@ public class CapGraph implements Graph {
                 }
             }
         }
+//        visual.addAttribute("ui.stylesheet","/Users/Supra/Downloads/SocialNetworks/ui.css");
     }
     /**
      * This function returns all the vertices present in the graph
@@ -123,13 +128,15 @@ public class CapGraph implements Graph {
         CapNode cp = vertices.get(source);
         cp.setInfo(true);
         infoChain.put(source,true);
+        visual.getNode(Integer.toString(source)).addAttribute("ui.style", "fill-color: rgb(0,100,255);");
+        visual.getNode(Integer.toString(source)).addAttribute("ui.label", Integer.toString(source));
     }
 
     private double calDecisionValue(int a, int b) {
         return ((double)b/(double)(a+b));
     }
 
-    public void infoFlow(int gen,int a,int b) {
+    public void infoFlow(int gen,int a,int b) throws InterruptedException{
 
         int countGen = 0;
         HashMap<Integer,Integer> haveInfo = new HashMap<>();

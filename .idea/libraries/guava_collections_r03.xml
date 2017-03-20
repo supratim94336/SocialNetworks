@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="guava-collections-r03">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/resources/graph/guava-collections-r03.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

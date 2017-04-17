@@ -18,7 +18,7 @@ public class GraphLoader {
      * to a "from" vertex and a "to" vertex.
      */ 
     public static void loadGraph(graph.Graph g, String filename) {
-        Set<Integer> seen = new HashSet<>();
+        Set<Integer> seen = new HashSet<Integer>();
         Scanner sc;
         try {
             sc = new Scanner(new File(filename));

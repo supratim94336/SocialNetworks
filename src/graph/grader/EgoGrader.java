@@ -8,16 +8,19 @@
 
 package graph.grader;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Scanner;
+
 import util.GraphLoader;
 import graph.CapGraph;
 import graph.Graph;
 
 public class EgoGrader extends Grader {
     private static final int TESTS = 10;
+
     public static void main(String[] args) {
         Grader grader = new EgoGrader();
         Thread thread = new Thread(grader);
@@ -50,11 +53,9 @@ public class EgoGrader extends Grader {
             Graph graph = new CapGraph();
             GraphLoader.loadGraph(graph, "data/facebook_ucsd.txt");
             feedback += "\nGRAPH: facebook_ucsd.txt";
-
             for (int i = 0; i < 10; i++) {
                 feedback += appendFeedback(i + 1, "Starting from node " + i);
                 // Run user's implementation and make the output readable
-
                 HashMap<Integer, HashSet<Integer>> res = graph.getEgonet(i).exportGraph();
                 BufferedReader br = new BufferedReader(new FileReader("data/ego_answers/ego_" + i + ".txt"));
                 String next;
@@ -74,7 +75,7 @@ public class EgoGrader extends Grader {
                         break;
                     }
 
-                    HashSet<Integer> check = new HashSet<>();
+                    HashSet<Integer> check = new HashSet<Integer>();
                     while(sc.hasNextInt()) {
                         check.add(sc.nextInt());
                     }

@@ -9,6 +9,7 @@ package graph.grader;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.PrintWriter;
 import util.GraphLoader;
 import java.util.List;
 import java.util.Set;
@@ -20,7 +21,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import graph.CapGraph;
 import graph.Graph;
-
 
 public class SCCGrader extends Grader {
     public int totalTests;
@@ -77,7 +77,7 @@ public class SCCGrader extends Grader {
 
                 while((line = br.readLine()) != null) {
                     Scanner sc = new Scanner(line);
-                    vertices = new TreeSet<>();
+                    vertices = new TreeSet<Integer>();
                     while(sc.hasNextInt()) {
                         vertices.add(sc.nextInt());
                     }
@@ -92,25 +92,23 @@ public class SCCGrader extends Grader {
                 // get student SCC result
                 List<Graph> graphSCCs = g.getSCCs();
 
-                List<Set<Integer>> sccs = new ArrayList<>();
+                List<Set<Integer>> sccs = new ArrayList<Set<Integer>>();
 
                 for(Graph graph : graphSCCs) {
                     HashMap<Integer, HashSet<Integer>> curr = graph.exportGraph();
-//                    printGraph(graph);
-                    TreeSet<Integer> scc = new TreeSet<>();
+                    TreeSet<Integer> scc = new TreeSet<Integer>();
                     for (Map.Entry<Integer, HashSet<Integer>> entry : curr.entrySet()) {
                         scc.add(entry.getKey());
                     }
                     sccs.add(scc);
                 }
 
-//                System.out.println(sccs.toString());
 
                 boolean testFailed = false;
                 testsPassed += answer.size() + sccs.size();
                 totalTests += answer.size() + sccs.size();
 
-                Set<Integer> answerSCC;
+                Set<Integer> answerSCC = null;
                 Set<Integer> scc = null;
 
                 // loop over SCCs
